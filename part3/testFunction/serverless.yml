@@ -2,9 +2,21 @@ service: testfunction
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.7
   profile: tmp_admin
+
+custom:
+  pythonRequirements:
+    zip: true
+    layer: true
 
 functions:
   hello:
     handler: handler.hello
+    memorySize: 1024
+    timeout: 30
+    layers:
+      - { Ref: PythonRequirementsLambdaLayer }
+
+plugins:
+  - serverless-python-requirements
