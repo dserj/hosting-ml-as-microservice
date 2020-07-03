@@ -3,8 +3,11 @@ app = Flask(__name__)
 
 import json
 
-import nltk
-nltk.data.path=['.data']
+from nltk import download
+
+download('movie_reviews')
+download('punkt')
+download('stopwords')
 
 from nltk.corpus import stopwords
 from string import punctuation
