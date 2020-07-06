@@ -3,11 +3,8 @@ app = Flask(__name__)
 
 import json
 
-from nltk import download
-
-download('movie_reviews')
-download('punkt')
-download('stopwords')
+import nltk
+nltk.data.path=['.data']
 
 from nltk.corpus import stopwords
 from string import punctuation
@@ -53,8 +50,10 @@ def get_sentiment(review):
     return model.classify(words)
 
 from flask import request
+from flask_cors import cross_origin
 
 @app.route('/predict', methods = ['GET', 'POST'])
+@cross_origin(origins=['https://localhost:1111', 'http://serj-test-bucket.s3.amazonaws.com'])
 def predict():
     if request.method == 'GET':
         input = request.args.get('input')

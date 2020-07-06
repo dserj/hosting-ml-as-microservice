@@ -11,11 +11,14 @@
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-             document.getElementById("output").innerHTML += "<div>"+JSON.parse(xhttp.responseText).args.text+"</div>";
+             document.getElementById("output").innerHTML += "<div>"+xhttp.responseText+"</div>";
           }
       };
-      xhttp.open("GET", "https://httpbin.org/get?text="+review, true);
-      xhttp.send();
+      xhttp.open("POST", "http://34.239.103.238:5000/predict", true);
+      xhttp.setRequestHeader("Accept", "application/json");
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      var req = JSON.stringify({ input: review });
+      xhttp.send(req);
     }
     </script>
   </head>
